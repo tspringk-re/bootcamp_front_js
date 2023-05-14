@@ -41,10 +41,6 @@ app.post('/api/tasks/update', async (req, res) =>
   console.log("Request POST /api/tasks/update");
 
   const task = { ...req.body };
-  // const id = req.body.id;
-  // const title =
-  // const title = req.body.status;
-
   const db = await databaseManager.getInstance();
 
   console.log(`Task Update: ${task.title} -> ${task.status == 1 ? "DONE" : "TO DO"}`);
@@ -53,6 +49,23 @@ app.post('/api/tasks/update', async (req, res) =>
     await db.all(`UPDATE tasks SET status=${task.status} WHERE id=${task.id}`);
     res.status(200).json({ message: `Task Update: ${task.title} -> ${task.status == 1 ? "DONE" : "TO DO"}` });
     console.log("Succeeded");
+  } catch (e) {
+    res.status(500).json(e);
+    console.log("Failed");
+  }
+});
+
+app.delete('/api/tasks/delete', async (req, res) =>
+{
+  console.log("Request POST /api/tasks/delete");
+
+  const db = await databaseManager.getInstance();
+
+  console.log(`Task Delete..`);
+
+  try {
+    await db.all(`DELETE from tasks WHERE status=1`);
+    res.status(200).json({ message: `Done tasks Deleted` });
   } catch (e) {
     res.status(500).json(e);
     console.log("Failed");

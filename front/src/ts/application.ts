@@ -15,6 +15,7 @@ type Elements = {
   taskLists: HTMLElement | null;
   taskRegisterTitle: HTMLInputElement | null;
   taskRegister: HTMLElement | null;
+  taskClearBtn: HTMLElement | null;
 }
 
 export class Application {
@@ -27,7 +28,10 @@ export class Application {
     this.elements.taskLists = document.querySelector(".task-list");
     this.elements.taskRegisterTitle = document.querySelector(".form__title");
     this.elements.taskRegister = document.querySelector(".form__submit");
+    this.elements.taskClearBtn = document.querySelector(".clear__btn");
+
     this.elements.taskRegister?.addEventListener("click", this.registerTask);
+    this.elements.taskClearBtn?.addEventListener("click", this.deleteDoneTasks);
 
     await this.updateTasksData();
 
@@ -143,6 +147,31 @@ export class Application {
     };
 
     const response = await fetch(`${API_URL}/api/tasks/update`, options);
+    if (!response.ok) throw new Error("Network response was not ok.");
+
+    this.updateTasksData();
+  }
+
+  private deleteDoneTasks = async (e: any): Promise<void> =>
+  {
+    e.preventDefault();
+
+    // const elem_task = e.target.parentNode;
+    // const body: Task = {
+    //   id: parseInt(elem_task.getAttribute("data-id")),
+    //   status: parseInt(elem_task.getAttribute("data-status")),
+    //   title: elem_task.querySelector("[data-test=task-title]").textContent,
+    // }
+
+    const options: object = {
+      method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify({ "command": "deleteDoneTasks" }),
+    };
+
+    const response = await fetch(`${API_URL}/api/tasks/delete`, options);
     if (!response.ok) throw new Error("Network response was not ok.");
 
     this.updateTasksData();

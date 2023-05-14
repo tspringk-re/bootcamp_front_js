@@ -33,6 +33,8 @@ export class Application {
     this.elements.taskRegister?.addEventListener("click", this.registerTask);
     this.elements.taskClearBtn?.addEventListener("click", this.deleteDoneTasks);
 
+    this.displayWelcomeMessage();
+
     await this.updateTasksData();
 
     return;
@@ -156,13 +158,6 @@ export class Application {
   {
     e.preventDefault();
 
-    // const elem_task = e.target.parentNode;
-    // const body: Task = {
-    //   id: parseInt(elem_task.getAttribute("data-id")),
-    //   status: parseInt(elem_task.getAttribute("data-status")),
-    //   title: elem_task.querySelector("[data-test=task-title]").textContent,
-    // }
-
     const options: object = {
       method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -175,5 +170,16 @@ export class Application {
     if (!response.ok) throw new Error("Network response was not ok.");
 
     this.updateTasksData();
+  }
+
+  private displayWelcomeMessage = (): void =>
+  {
+    const firstTime = localStorage.getItem("firstTime");
+
+    if (firstTime == null || firstTime == "true")
+    {
+      alert("Welcome to TODO APP");
+      localStorage.setItem("firstTime", "false");
+    }
   }
 }

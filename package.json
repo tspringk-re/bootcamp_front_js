@@ -1,0 +1,16 @@
+{
+  "name": "bootcamp_front_js",
+  "scripts": {
+    "init": "npm clean-install -prefix ./api && npm clean-install -prefix ./e2e && npm clean-install -prefix ./front",
+    "db:reset": "npm run db:reset -prefix ./api",
+    "watch:api": "npm run watch -prefix ./api",
+    "watch:front": "npm run watch -prefix ./front",
+    "test": "npm run test -prefix ./e2e",
+    "test:get_tasks": "npm run test:get_tasks -prefix ./e2e",
+    "test:add_todo": "npm run test:add_todo -prefix ./e2e",
+    "test:done_todo": "npm run test:done_todo -prefix ./e2e",
+    "test:clear_all_done_tasks": "npm run test:clear_all_done_tasks -prefix ./e2e",
+    "test:welcome_message": "npm run test:welcome_message -prefix ./e2e"
+  },
+  "license": "SEE LICENSE IN LICENSE"
+}

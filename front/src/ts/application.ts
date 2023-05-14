@@ -118,12 +118,13 @@ export class Application {
   }
 
   private validateTaskTitle = (title: string): boolean => {
-    title = title.trim();
     console.log(title);
-    return (
-      title != "" &&
-      !(title.match(/[^A-Za-z0-9]+/))
-    );
+    return true;
+    // title = title.trim();
+    // return (
+    //   title != "" &&
+    //   !(title.match(/[^A-Za-z0-9]+/))
+    // );
   }
 
   private updateTaskStatus = async (e: any): Promise<void> =>
@@ -174,12 +175,12 @@ export class Application {
 
   private displayWelcomeMessage = (): void =>
   {
-    const firstTime = localStorage.getItem("firstTime");
+    const firstTime = localStorage.getItem("hasShownWelcomeMessage");
 
-    if (firstTime == null || firstTime == "true")
+    if (firstTime == null)
     {
       alert("Welcome to TODO APP");
-      localStorage.setItem("firstTime", "false");
+      localStorage.setItem("hasShownWelcomeMessage", "yes");
     }
   }
 }

@@ -29,7 +29,9 @@ describe("TODO APP", () => {
     const title = await page.$eval('[data-test="task-title"]', el => {
       return (el as HTMLElement).innerText;
     });
-    expect(title).toBe("breakfast");
+    //stretch
+    expect(title).toBe("stretch");
+    // expect(title).toBe("breakfast");
   });
 
   test("add todo", async () => {
